@@ -30,8 +30,21 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env
+.env.local
+.env.production
+.env.development
+!.env.example
+!propertyflow_backend/.env.example
+
+# python/backend local files
+.venv/
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+media/
 
 # vercel
 .vercel
