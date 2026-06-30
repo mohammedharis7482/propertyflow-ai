@@ -10,18 +10,35 @@ Production stack:
 - Backend: Django REST Framework
 - Database: PostgreSQL
 - Authentication: JWT
-- Media files: local VPS media directory initially
+- Media files: local development media directory; Cloudinary/S3 recommended for Render production uploads
 - AI services: backend rule-based AI insights
 
 This guide is planning and preparation only. It does not deploy the project yet.
 
 ## 2. Recommended Production Architecture
 
-Recommended first production architecture:
+Recommended first deployment architecture:
 
 - Frontend hosting: Vercel
+- Backend hosting: Render Web Service
+- Database: Render PostgreSQL
+- App server: Gunicorn
+- Static files: WhiteNoise
+- Frontend domain: existing Vercel domain or custom domain
+- Backend API domain: Render backend domain first, custom API domain later
+
+Beginner-friendly first target:
+
+```text
+Frontend: Vercel
+Backend: Render Web Service
+Database: Render PostgreSQL
+```
+
+Advanced future production architecture:
+
 - Backend hosting: Ubuntu VPS
-- Database: PostgreSQL on the VPS initially
+- Database: PostgreSQL on the VPS or managed PostgreSQL
 - Web server: Nginx
 - App server: Gunicorn
 - Frontend domain: `propertyflowai.com`
@@ -43,15 +60,13 @@ User opens propertyflowai.com
 ↓
 Vercel serves the Next.js frontend
 ↓
-Frontend calls https://api.propertyflowai.com/api/v1
+Frontend calls https://propertyflow-backend.onrender.com/api/v1
 ↓
-Nginx receives the backend request
-↓
-Nginx proxies to Gunicorn
+Render routes the request to the web service
 ↓
 Gunicorn runs Django
 ↓
-Django queries PostgreSQL
+Django queries Render PostgreSQL
 ↓
 Django returns JSON to the frontend
 ```
@@ -62,11 +77,12 @@ Required:
 
 - GitHub account/repository
 - Vercel account
-- VPS provider account
-- Domain provider account
+- Render account
+- Domain provider account if using custom domains
 
 Recommended later:
 
+- VPS provider account for advanced self-managed deployment
 - Cloudinary or AWS S3 for media files
 - Email provider for transactional email
 - Monitoring/logging provider
@@ -82,88 +98,67 @@ Phase 1: Production Preparation
 - Confirm `.env` files are not committed.
 - Confirm production settings use PostgreSQL.
 
-Phase 2: VPS Setup
+Phase 2: Render PostgreSQL Setup
 
-- Create Ubuntu VPS.
-- Add SSH access.
-- Update server packages.
-- Install Python, PostgreSQL, Nginx, Git, and system dependencies.
-- Create app directory.
+- Create a Render PostgreSQL database.
+- Copy the internal/external `DATABASE_URL`.
+- Keep database credentials private.
 
-Phase 3: PostgreSQL Setup
+Phase 3: Render Django Web Service
 
-- Create database.
-- Create database user.
-- Grant privileges.
-- Add database credentials to backend `.env`.
+- Create a Render Web Service from the GitHub repo.
+- Set root directory to `propertyflow_backend`.
+- Set build command.
+- Set start command.
+- Add backend environment variables.
 
-Phase 4: Django Backend Deployment
+Phase 4: Backend Production Verification
 
-- Clone repository.
-- Create virtual environment.
-- Install requirements.
-- Configure `.env`.
-- Run migrations.
-- Collect static files.
-- Create superuser.
-- Test Gunicorn manually.
+- Confirm build succeeds.
+- Confirm migrations run.
+- Test `/api/v1/health/`.
+- Create/admin-check superuser if needed.
 
-Phase 5: Nginx + Gunicorn Setup
+Phase 5: Vercel Frontend Connection
 
-- Create Gunicorn systemd service.
-- Configure Nginx reverse proxy.
-- Serve static files.
-- Serve media files.
-- Proxy API requests to Gunicorn.
+- Update `NEXT_PUBLIC_API_URL` in Vercel.
+- Redeploy frontend.
+- Confirm public pages call Render backend.
 
-Phase 6: Domain + SSL
+Phase 6: Production Testing
 
-- Point `api.propertyflowai.com` to VPS IP.
-- Install Certbot.
-- Issue SSL certificate.
-- Confirm HTTPS works.
-- Enable auto-renewal.
+- Test auth, dashboards, workflows, admin actions, and AI features.
 
-Phase 7: Vercel Frontend Deployment
+Phase 7: Custom Domain + SSL
 
-- Import GitHub repo into Vercel.
-- Set frontend environment variables.
-- Deploy frontend.
-- Point frontend domain to Vercel.
+- Keep Vercel frontend domain or configure custom domain.
+- Add custom API domain on Render later if needed.
+- Render and Vercel provide SSL automatically.
 
-Phase 8: Production Testing
+Phase 8: Backup and Maintenance
 
-- Test public pages.
-- Test auth.
-- Test dashboards.
-- Test workflows.
-- Test admin actions.
-- Test AI features.
-- Test mobile.
-
-Phase 9: Backup and Maintenance
-
-- Configure PostgreSQL backups.
+- Configure Render PostgreSQL backups based on plan.
 - Back up media files.
 - Monitor logs.
 - Update packages carefully.
 
+Advanced future phases:
+
+- Move backend to Ubuntu VPS if needed.
+- Add Nginx, systemd, Certbot, and manual PostgreSQL management.
+
 ## 6. Backend Production Environment Variables
 
-Backend `.env` on VPS:
+Backend environment variables on Render:
 
 ```env
 DEBUG=False
 SECRET_KEY=replace-with-strong-secret-key
-ALLOWED_HOSTS=api.propertyflowai.com
-CSRF_TRUSTED_ORIGINS=https://api.propertyflowai.com,https://propertyflowai.com,https://www.propertyflowai.com
-CORS_ALLOWED_ORIGINS=https://propertyflowai.com,https://www.propertyflowai.com
+ALLOWED_HOSTS=propertyflow-backend.onrender.com
+CSRF_TRUSTED_ORIGINS=https://your-vercel-url.vercel.app
+CORS_ALLOWED_ORIGINS=https://your-vercel-url.vercel.app
 
-DATABASE_NAME=propertyflow_db
-DATABASE_USER=propertyflow_user
-DATABASE_PASSWORD=replace-with-strong-password
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
+DATABASE_URL=postgresql://...
 
 DJANGO_SETTINGS_MODULE=config.settings.production
 ```
@@ -175,7 +170,7 @@ Never commit real production secrets.
 Vercel environment variable:
 
 ```env
-NEXT_PUBLIC_API_URL=https://api.propertyflowai.com/api/v1
+NEXT_PUBLIC_API_URL=https://propertyflow-backend.onrender.com/api/v1
 ```
 
 Local frontend development:
@@ -184,55 +179,75 @@ Local frontend development:
 NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api/v1
 ```
 
-## 8. Backend Deployment Commands
+## 8. Render Backend Deployment Commands
 
-Future backend deployment commands:
+Render settings:
 
-```bash
-git clone <repo-url>
-cd propertyflow-ai/propertyflow_backend
+```text
+Root Directory:
+propertyflow_backend
 
-python3 -m venv venv
-source venv/bin/activate
+Build Command:
+pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
 
-pip install -r requirements.txt
-
-cp .env.example .env
-# Edit .env with production values
-
-export DJANGO_SETTINGS_MODULE=config.settings.production
-
-python manage.py migrate
-python manage.py collectstatic
-python manage.py createsuperuser
-
+Start Command:
 gunicorn config.wsgi:application
 ```
 
-Production Gunicorn should run through systemd, not manually.
+Manual local equivalent:
 
-## 9. PostgreSQL Plan
-
-Example PostgreSQL setup:
-
-```sql
-CREATE DATABASE propertyflow_db;
-CREATE USER propertyflow_user WITH PASSWORD 'replace-with-strong-password';
-ALTER ROLE propertyflow_user SET client_encoding TO 'utf8';
-ALTER ROLE propertyflow_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE propertyflow_user SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE propertyflow_db TO propertyflow_user;
+```bash
+cd propertyflow_backend
+source .venv/bin/activate
+export DJANGO_SETTINGS_MODULE=config.settings.production
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
+gunicorn config.wsgi:application
 ```
 
-Then configure Django:
+Render runs the build and start commands automatically.
 
-```env
-DATABASE_NAME=propertyflow_db
-DATABASE_USER=propertyflow_user
-DATABASE_PASSWORD=replace-with-strong-password
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-```
+## 9. Render PostgreSQL Plan
+
+Steps:
+
+1. Create a new Render PostgreSQL database.
+2. Copy the `DATABASE_URL`.
+3. Add it to the Render backend Web Service environment variables.
+4. Render will use `dj-database-url` to configure Django PostgreSQL.
+
+The old `DATABASE_NAME`, `DATABASE_USER`, `DATABASE_PASSWORD`, `DATABASE_HOST`, and `DATABASE_PORT` style still exists as a fallback for non-Render deployments.
+
+## 9A. Beginner Render Deployment Path
+
+1. Push the latest code to GitHub.
+2. In Render, create PostgreSQL:
+   - Name: `propertyflow-postgres`
+   - Database: `propertyflow_db`
+   - User: `propertyflow_user`
+3. Copy the database `DATABASE_URL`.
+4. In Render, create Web Service:
+   - Repository: PropertyFlow AI repo
+   - Root Directory: `propertyflow_backend`
+   - Runtime: Python
+   - Build Command: `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
+   - Start Command: `gunicorn config.wsgi:application`
+5. Add environment variables:
+   - `DJANGO_SETTINGS_MODULE=config.settings.production`
+   - `DEBUG=False`
+   - `SECRET_KEY=<Render generated secret>`
+   - `ALLOWED_HOSTS=propertyflow-backend.onrender.com`
+   - `CORS_ALLOWED_ORIGINS=https://your-vercel-url.vercel.app`
+   - `CSRF_TRUSTED_ORIGINS=https://your-vercel-url.vercel.app`
+   - `DATABASE_URL=<Render PostgreSQL URL>`
+6. Deploy backend.
+7. Test:
+   - `https://propertyflow-backend.onrender.com/api/v1/health/`
+8. In Vercel, update:
+   - `NEXT_PUBLIC_API_URL=https://propertyflow-backend.onrender.com/api/v1`
+9. Redeploy Vercel frontend.
+10. Test public pages, login, dashboards, workflows, admin actions, and AI features.
 
 ## 10. Nginx Plan
 
@@ -298,17 +313,21 @@ NEXT_PUBLIC_API_URL=https://api.propertyflowai.com/api/v1
 
 ## 13. Media File Plan
 
-Initial production plan:
+Initial Render plan:
 
-- Store media files in VPS `MEDIA_ROOT`.
-- Nginx serves `/media/`.
-- Back up media directory regularly.
+- Static files are handled by WhiteNoise after `collectstatic`.
+- Seeded remote image URLs continue to work.
+- User-uploaded media should not rely on Render's ephemeral filesystem for long-term production persistence.
 
-Future recommended plan:
+Recommended production media plan:
 
 - Move media uploads to Cloudinary or AWS S3.
 - Store only URLs in Django.
-- Avoid relying on VPS disk for long-term uploaded media.
+- Avoid relying on Render disk for long-term uploaded media.
+
+Temporary MVP note:
+
+- If no real production uploads are needed at launch, Render can run the API while existing remote seeded images continue to display.
 
 ## 14. Security Checklist
 
@@ -459,4 +478,3 @@ sudo nginx -t
 sudo systemctl restart propertyflow
 sudo systemctl restart nginx
 ```
-
