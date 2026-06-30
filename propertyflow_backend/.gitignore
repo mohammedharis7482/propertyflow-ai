@@ -13,3 +13,8 @@ media/*
 staticfiles/
 static/*
 !static/.gitkeep
+.next
+.env.local
+.env.production
+*.pyc 
+db.sqlite3
