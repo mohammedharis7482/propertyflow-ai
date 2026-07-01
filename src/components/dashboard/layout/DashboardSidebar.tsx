@@ -84,7 +84,7 @@ export default function DashboardSidebar({
 
       <aside
         className={cn(
-          "fixed left-0 top-0 z-50 flex h-dvh w-[min(292px,calc(100vw-28px))] flex-col border-r border-border bg-white transition-transform duration-300 lg:sticky lg:top-0 lg:z-40 lg:w-[292px] lg:translate-x-0",
+          "fixed left-0 top-0 z-50 flex h-dvh w-[min(292px,calc(100vw-28px))] flex-col overflow-hidden border-r border-border bg-white transition-transform duration-300 lg:z-40 lg:w-[292px] lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
@@ -122,7 +122,7 @@ export default function DashboardSidebar({
           </div>
         </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-3 lg:px-4 lg:pb-4">
+        <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain px-3 pb-3 lg:px-4 lg:pb-4">
           {items.map((item) => {
             const Icon = item.icon;
             const active =

@@ -161,16 +161,45 @@ export default function PropertiesExplorer({
         </div>
 
         {showMobileFilters && (
-          <div className="mt-4 lg:hidden">
-            <PropertyFilters
-              filters={filters}
-              locations={locations}
-              types={types}
-              statuses={statuses}
-              onChange={updateFilter}
-              onReset={resetFilters}
-              className="shadow-none"
+          <div className="fixed inset-0 z-[70] lg:hidden">
+            <button
+              type="button"
+              aria-label="Close filters"
+              className="absolute inset-0 bg-slate-950/35 backdrop-blur-[2px]"
+              onClick={() => setShowMobileFilters(false)}
             />
+
+            <div className="absolute inset-x-0 bottom-0 max-h-[88vh] overflow-hidden rounded-t-[2rem] border border-border bg-white shadow-2xl shadow-slate-950/15">
+              <div className="flex items-center justify-between border-b border-border px-5 py-4">
+                <div className="min-w-0">
+                  <p className="font-heading text-lg font-bold">Property Filters</p>
+                  <p className="text-xs text-muted-foreground">
+                    Refine listings without leaving results.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowMobileFilters(false)}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-white"
+                  aria-label="Close filters"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <div className="max-h-[calc(88vh-73px)] overflow-y-auto p-4">
+                <PropertyFilters
+                  filters={filters}
+                  locations={locations}
+                  types={types}
+                  statuses={statuses}
+                  onChange={updateFilter}
+                  onReset={resetFilters}
+                  className="border-0 p-0 shadow-none"
+                />
+              </div>
+            </div>
           </div>
         )}
       </div>

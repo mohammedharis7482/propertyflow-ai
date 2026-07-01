@@ -93,7 +93,7 @@ export default function DashboardLayout({
 
   return (
     <div
-      className="dashboard-shell min-h-screen max-w-full overflow-x-hidden bg-[#F6F8F7] lg:grid lg:grid-cols-[292px_minmax(0,1fr)]"
+      className="dashboard-shell min-h-screen max-w-full overflow-x-hidden bg-[#F6F8F7]"
       data-required-role={requiredRole ?? role}
     >
       <DashboardSidebar
@@ -102,7 +102,7 @@ export default function DashboardLayout({
         onClose={() => setOpen(false)}
       />
 
-      <div className="min-w-0 max-w-full overflow-x-hidden bg-[#F6F8F7] lg:border-l lg:border-border">
+      <div className="min-w-0 max-w-full overflow-x-hidden bg-[#F6F8F7] lg:ml-[292px] lg:border-l lg:border-border">
         <DashboardTopbar role={role} onMenuClick={() => setOpen(true)} />
 
         <main className="mx-auto w-full min-w-0 max-w-[1440px] overflow-x-hidden px-4 py-5 sm:px-5 lg:px-8 lg:py-8 xl:px-10">

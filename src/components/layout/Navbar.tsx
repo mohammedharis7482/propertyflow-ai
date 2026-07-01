@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
@@ -12,12 +12,35 @@ import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur-xl">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b bg-white/85 backdrop-blur-xl transition-[box-shadow,border-color,background-color] duration-300",
+        scrolled
+          ? "border-border/80 shadow-sm shadow-slate-200/70"
+          : "border-border/50 shadow-none"
+      )}
+    >
       <Container>
-        <nav className="flex h-16 min-w-0 items-center justify-between gap-3 sm:h-[76px] lg:h-[88px]">
+        <nav
+          className={cn(
+            "flex min-w-0 items-center justify-between gap-3 transition-[height] duration-300 sm:h-[76px] lg:h-[88px]",
+            scrolled ? "h-14" : "h-16"
+          )}
+        >
           <Link href="/" className="group flex min-w-0 items-center gap-3">
             <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-800 text-white shadow-lg shadow-emerald-900/20 sm:h-11 sm:w-11 sm:rounded-2xl lg:h-12 lg:w-12">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.35),transparent_36%)]" />
