@@ -43,15 +43,27 @@ export async function apiFetch<T>(
 ): Promise<T> {
   const { params, headers, auth = true, ...fetchOptions } = options;
   const token = auth ? getAccessToken() : null;
-  const response = await fetch(buildApiUrl(path, params), {
-    ...fetchOptions,
-    headers: {
-      Accept: "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...headers,
-    },
-    cache: fetchOptions.cache ?? "no-store",
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(buildApiUrl(path, params), {
+      ...fetchOptions,
+      headers: {
+        Accept: "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...headers,
+      },
+      cache: fetchOptions.cache ?? "no-store",
+    });
+  } catch (error) {
+    throw new ApiError(
+      "Unable to reach PropertyFlow API. Check the backend URL and allowed CORS origin.",
+      0,
+      {
+        cause: error instanceof Error ? error.message : String(error),
+      }
+    );
+  }
 
   const contentType = response.headers.get("content-type");
   const hasJson = contentType?.includes("application/json");

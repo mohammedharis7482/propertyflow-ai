@@ -130,8 +130,25 @@ export function getRoleFromDashboardPath(pathname: string): AuthRole | null {
   return null;
 }
 
-export function getFriendlyAuthError(error: unknown) {
+type AuthErrorContext = "login" | "register" | "general";
+
+export function getFriendlyAuthError(
+  error: unknown,
+  context: AuthErrorContext = "general"
+) {
   if (error instanceof ApiError) {
+    if (context === "login" && (error.status === 400 || error.status === 401)) {
+      return "Invalid email or password.";
+    }
+
+    if (error.status === 0) {
+      return "Unable to reach PropertyFlow API. Check that the Render backend is running and CORS allows your Vercel domain.";
+    }
+
+    if (error.status === 403) {
+      return "This account does not have permission to sign in here.";
+    }
+
     if (typeof error.payload === "object" && error.payload !== null) {
       const payload = error.payload as Record<string, unknown>;
       const firstError = Object.values(payload).flat().find(Boolean);
@@ -144,5 +161,5 @@ export function getFriendlyAuthError(error: unknown) {
     return error.message;
   }
 
-  return "Network error. Please check that the backend server is running.";
+  return "Unable to reach PropertyFlow API. Check that the Render backend is running and CORS allows your Vercel domain.";
 }

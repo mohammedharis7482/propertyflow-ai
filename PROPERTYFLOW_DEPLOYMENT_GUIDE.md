@@ -60,7 +60,7 @@ User opens propertyflowai.com
 ↓
 Vercel serves the Next.js frontend
 ↓
-Frontend calls https://propertyflow-backend.onrender.com/api/v1
+Frontend calls https://propertyflow-ai-1.onrender.com/api/v1
 ↓
 Render routes the request to the web service
 ↓
@@ -154,9 +154,9 @@ Backend environment variables on Render:
 ```env
 DEBUG=False
 SECRET_KEY=replace-with-strong-secret-key
-ALLOWED_HOSTS=propertyflow-backend.onrender.com
-CSRF_TRUSTED_ORIGINS=https://your-vercel-url.vercel.app
-CORS_ALLOWED_ORIGINS=https://your-vercel-url.vercel.app
+ALLOWED_HOSTS=propertyflow-ai-1.onrender.com
+CSRF_TRUSTED_ORIGINS=https://propertyflow-ai-omega.vercel.app
+CORS_ALLOWED_ORIGINS=https://propertyflow-ai-omega.vercel.app
 
 DATABASE_URL=postgresql://...
 
@@ -170,7 +170,7 @@ Never commit real production secrets.
 Vercel environment variable:
 
 ```env
-NEXT_PUBLIC_API_URL=https://propertyflow-backend.onrender.com/api/v1
+NEXT_PUBLIC_API_URL=https://propertyflow-ai-1.onrender.com/api/v1
 ```
 
 Local frontend development:
@@ -237,15 +237,15 @@ The old `DATABASE_NAME`, `DATABASE_USER`, `DATABASE_PASSWORD`, `DATABASE_HOST`, 
    - `DJANGO_SETTINGS_MODULE=config.settings.production`
    - `DEBUG=False`
    - `SECRET_KEY=<Render generated secret>`
-   - `ALLOWED_HOSTS=propertyflow-backend.onrender.com`
-   - `CORS_ALLOWED_ORIGINS=https://your-vercel-url.vercel.app`
-   - `CSRF_TRUSTED_ORIGINS=https://your-vercel-url.vercel.app`
+   - `ALLOWED_HOSTS=propertyflow-ai-1.onrender.com`
+   - `CORS_ALLOWED_ORIGINS=https://propertyflow-ai-omega.vercel.app`
+   - `CSRF_TRUSTED_ORIGINS=https://propertyflow-ai-omega.vercel.app`
    - `DATABASE_URL=<Render PostgreSQL URL>`
 6. Deploy backend.
 7. Test:
-   - `https://propertyflow-backend.onrender.com/api/v1/health/`
+   - `https://propertyflow-ai-1.onrender.com/api/v1/health/`
 8. In Vercel, update:
-   - `NEXT_PUBLIC_API_URL=https://propertyflow-backend.onrender.com/api/v1`
+   - `NEXT_PUBLIC_API_URL=https://propertyflow-ai-1.onrender.com/api/v1`
 9. Redeploy Vercel frontend.
 10. Test public pages, login, dashboards, workflows, admin actions, and AI features.
 

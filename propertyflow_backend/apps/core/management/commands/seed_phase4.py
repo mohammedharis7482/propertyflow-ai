@@ -22,6 +22,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         admin = self.ensure_admin()
         agent, profile = self.ensure_test_agent()
+        self.ensure_public_test_user()
         self.prepare_pending_agents()
         self.prepare_pending_properties()
         self.ensure_agent_workflow(agent, profile)
@@ -96,6 +97,23 @@ class Command(BaseCommand):
             },
         )
         return agent, profile
+
+    def ensure_public_test_user(self):
+        user, _ = User.objects.update_or_create(
+            email="user@propertyflow.ai",
+            defaults={
+                "full_name": "PropertyFlow Test User",
+                "phone": "+971500003333",
+                "role": User.Role.USER,
+                "is_staff": False,
+                "is_superuser": False,
+                "is_active": True,
+                "is_verified": True,
+            },
+        )
+        user.set_password("User@12345")
+        user.save()
+        return user
 
     def prepare_pending_agents(self):
         for agent in AgentProfile.objects.select_related("user").exclude(user__email="agent@propertyflow.ai").order_by("id")[:2]:

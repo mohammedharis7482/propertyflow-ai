@@ -66,7 +66,7 @@ export default function RegisterForm() {
       return;
     } catch (error) {
       setLoading(false);
-      setApiError(getFriendlyAuthError(error));
+      setApiError(getFriendlyAuthError(error, "register"));
     }
   }
 

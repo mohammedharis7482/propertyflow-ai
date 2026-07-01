@@ -11,13 +11,13 @@ import { getDashboardPath, getFriendlyAuthError } from "@/services/auth.service"
 const demoRoles = [
   {
     label: "User",
-    email: "aisha.khan@propertyflow.example",
-    password: "UserPassword123",
+    email: "user@propertyflow.ai",
+    password: "User@12345",
   },
   {
     label: "Agent",
-    email: "ahmed.mansoori@propertyflow.example",
-    password: "AgentPassword123",
+    email: "agent@propertyflow.ai",
+    password: "Agent@12345",
   },
   {
     label: "Admin",
@@ -63,7 +63,7 @@ export default function LoginForm() {
       return;
     } catch (error) {
       setLoading(false);
-      setApiError(getFriendlyAuthError(error));
+      setApiError(getFriendlyAuthError(error, "login"));
     }
   }
 
