@@ -140,7 +140,8 @@ export default function DashboardTopbar({
   }, [notificationsOpen]);
 
   return (
-    <header className="sticky top-0 z-30 max-w-full overflow-x-clip border-b border-border bg-white/95 backdrop-blur-xl">
+    <>
+    <header className="fixed inset-x-0 top-0 z-40 max-w-full overflow-x-clip border-b border-border bg-white/95 backdrop-blur-xl lg:left-[292px]">
       <div className="mx-auto flex h-14 w-full min-w-0 max-w-[1440px] items-center justify-between gap-2 px-3 sm:h-16 sm:gap-3 sm:px-5 lg:h-20 lg:px-8 xl:px-10">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <button
@@ -329,6 +330,9 @@ export default function DashboardTopbar({
         onOpenChange={setAssistantOpen}
       />
     </header>
+
+    <div aria-hidden="true" className="h-[6.75rem] sm:h-[7.75rem] lg:h-20" />
+    </>
   );
 }
 

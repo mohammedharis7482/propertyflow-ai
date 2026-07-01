@@ -26,21 +26,22 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 border-b bg-white/85 backdrop-blur-xl transition-[box-shadow,border-color,background-color] duration-300",
-        scrolled
-          ? "border-border/80 shadow-sm shadow-slate-200/70"
-          : "border-border/50 shadow-none"
-      )}
-    >
-      <Container>
-        <nav
-          className={cn(
-            "flex min-w-0 items-center justify-between gap-3 transition-[height] duration-300 sm:h-[76px] lg:h-[88px]",
-            scrolled ? "h-14" : "h-16"
-          )}
-        >
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 border-b bg-white/85 backdrop-blur-xl transition-[box-shadow,border-color,background-color] duration-300",
+          scrolled
+            ? "border-border/80 shadow-sm shadow-slate-200/70"
+            : "border-border/50 shadow-none"
+        )}
+      >
+        <Container>
+          <nav
+            className={cn(
+              "flex min-w-0 items-center justify-between gap-3 transition-[height] duration-300 sm:h-[76px] lg:h-[88px]",
+              scrolled ? "h-14" : "h-16"
+            )}
+          >
           <Link href="/" className="group flex min-w-0 items-center gap-3">
             <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-800 text-white shadow-lg shadow-emerald-900/20 sm:h-11 sm:w-11 sm:rounded-2xl lg:h-12 lg:w-12">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.35),transparent_36%)]" />
@@ -117,14 +118,14 @@ export default function Navbar() {
           >
             {open ? <X size={21} /> : <Menu size={21} />}
           </button>
-        </nav>
+          </nav>
 
-        <div
-          className={cn(
-            "grid overflow-hidden transition-all duration-300 lg:hidden",
-            open ? "grid-rows-[1fr] pb-4 sm:pb-6" : "grid-rows-[0fr]"
-          )}
-        >
+          <div
+            className={cn(
+              "grid overflow-hidden transition-all duration-300 lg:hidden",
+              open ? "grid-rows-[1fr] pb-4 sm:pb-6" : "grid-rows-[0fr]"
+            )}
+          >
           <div className="min-h-0">
             <div className="rounded-[1.35rem] border border-border bg-white p-2.5 shadow-xl sm:rounded-[1.5rem] sm:p-3">
               {mainNavigation.map((item) => {
@@ -164,8 +165,11 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-        </div>
-      </Container>
-    </header>
+          </div>
+        </Container>
+      </header>
+
+      <div aria-hidden="true" className="h-16 sm:h-[76px] lg:h-[88px]" />
+    </>
   );
 }
