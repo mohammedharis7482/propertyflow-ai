@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   BriefcaseBusiness,
   Languages,
@@ -14,7 +14,6 @@ import {
 
 import AgentCard from "@/components/agent/AgentCard";
 import { Button } from "@/components/ui/button";
-import { getAgents } from "@/services/agent.service";
 import { Agent } from "@/types/agent";
 
 interface AgentsExplorerProps {
@@ -37,50 +36,28 @@ const sortOptions = [
 ];
 
 export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
-  const [apiAgents, setApiAgents] = useState(agents);
-  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("recommended");
   const [filters, setFilters] = useState(defaultFilters);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const locations = useMemo(
-    () => unique(apiAgents.map((agent) => agent.location)),
-    [apiAgents]
+    () => unique(agents.map((agent) => agent.location)),
+    [agents]
   );
   const specialities = useMemo(
-    () => unique(apiAgents.flatMap((agent) => agent.specialities ?? [])),
-    [apiAgents]
+    () => unique(agents.flatMap((agent) => agent.specialities ?? [])),
+    [agents]
   );
   const languages = useMemo(
-    () => unique(apiAgents.flatMap((agent) => agent.languages ?? [])),
-    [apiAgents]
+    () => unique(agents.flatMap((agent) => agent.languages ?? [])),
+    [agents]
   );
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadAgents() {
-      setIsLoading(true);
-      const nextAgents = await getAgents(toAgentApiParams(query, filters, sort));
-
-      if (active) {
-        setApiAgents(nextAgents);
-        setIsLoading(false);
-      }
-    }
-
-    loadAgents();
-
-    return () => {
-      active = false;
-    };
-  }, [filters, query, sort]);
 
   const filteredAgents = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return apiAgents
+    return agents
       .filter((agent) => {
         const searchable = [
           agent.name,
@@ -119,7 +96,7 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
         );
       })
       .sort((a, b) => sortAgents(a, b, sort));
-  }, [apiAgents, filters, query, sort]);
+  }, [agents, filters, query, sort]);
 
   const hasFilters =
     query.trim().length > 0 ||
@@ -251,7 +228,7 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div>
           <h2 className="font-heading text-2xl font-bold">
-            {isLoading ? "Loading" : filteredAgents.length} Verified Agents
+            {filteredAgents.length} Verified Agents
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {hasFilters
@@ -447,38 +424,4 @@ function sortAgents(a: Agent, b: Agent, sort: string) {
 
 function getExperienceYears(experience: string) {
   return Number(experience.replace(/[^0-9]/g, ""));
-}
-
-function toAgentApiParams(
-  query: string,
-  filters: typeof defaultFilters,
-  sort: string
-) {
-  const params: Record<string, string | boolean> = {};
-  const searchParts = [query.trim()];
-
-  if (filters.location !== "all") {
-    params.city = filters.location;
-  }
-
-  if (filters.speciality !== "all") {
-    searchParts.push(filters.speciality);
-  }
-
-  if (filters.language !== "all") {
-    searchParts.push(filters.language);
-  }
-
-  const search = searchParts.filter(Boolean).join(" ");
-  if (search) {
-    params.search = search;
-  }
-
-  if (sort === "rating-desc") {
-    params.ordering = "-rating";
-  } else if (sort === "experience-desc") {
-    params.ordering = "-experience_years";
-  }
-
-  return params;
 }

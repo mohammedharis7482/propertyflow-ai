@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
 import PropertyFilters, {
@@ -8,7 +8,6 @@ import PropertyFilters, {
 } from "@/components/property/PropertyFilters";
 import PropertyListCard from "@/components/property/PropertyListCard";
 import { Button } from "@/components/ui/button";
-import { getProperties } from "@/services/property.service";
 import { Property } from "@/types/property";
 
 interface PropertiesExplorerProps {
@@ -33,52 +32,28 @@ const sortOptions = [
 export default function PropertiesExplorer({
   properties,
 }: PropertiesExplorerProps) {
-  const [apiProperties, setApiProperties] = useState(properties);
-  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("recommended");
   const [filters, setFilters] = useState<PropertyFilterState>(defaultFilters);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const locations = useMemo(
-    () => unique(apiProperties.map((property) => property.location)),
-    [apiProperties]
+    () => unique(properties.map((property) => property.location)),
+    [properties]
   );
   const types = useMemo(
-    () => unique(apiProperties.map((property) => property.type)),
-    [apiProperties]
+    () => unique(properties.map((property) => property.type)),
+    [properties]
   );
   const statuses = useMemo(
-    () => unique(apiProperties.map((property) => property.status)),
-    [apiProperties]
+    () => unique(properties.map((property) => property.status)),
+    [properties]
   );
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadProperties() {
-      setIsLoading(true);
-      const nextProperties = await getProperties(
-        toPropertyApiParams(query, filters, sort)
-      );
-
-      if (active) {
-        setApiProperties(nextProperties);
-        setIsLoading(false);
-      }
-    }
-
-    loadProperties();
-
-    return () => {
-      active = false;
-    };
-  }, [filters, query, sort]);
 
   const filteredProperties = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return apiProperties
+    return properties
       .filter((property) => {
         const searchable = [
           property.title,
@@ -112,7 +87,7 @@ export default function PropertiesExplorer({
         );
       })
       .sort((a, b) => sortProperties(a, b, sort));
-  }, [apiProperties, filters, query, sort]);
+  }, [properties, filters, query, sort]);
 
   const hasFilters =
     query.trim().length > 0 ||
@@ -203,7 +178,7 @@ export default function PropertiesExplorer({
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div>
           <h2 className="font-heading text-2xl font-bold">
-            {isLoading ? "Loading" : filteredProperties.length} Properties Found
+            {filteredProperties.length} Properties Found
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {hasFilters
@@ -320,58 +295,4 @@ function getComparablePrice(price: string) {
   }
 
   return number;
-}
-
-function toPropertyApiParams(
-  query: string,
-  filters: PropertyFilterState,
-  sort: string
-) {
-  const params: Record<string, string | number> = {};
-  const trimmedQuery = query.trim();
-
-  if (trimmedQuery) {
-    params.search = trimmedQuery;
-  }
-
-  if (filters.location !== "all") {
-    const [area, city] = filters.location.split(",").map((item) => item.trim());
-    if (city) {
-      params.city = city;
-      params.area = area;
-    } else {
-      params.search = [params.search, filters.location].filter(Boolean).join(" ");
-    }
-  }
-
-  if (filters.type !== "all") {
-    params.property_type = filters.type.toUpperCase().replaceAll(" ", "_");
-  }
-
-  if (filters.status !== "all") {
-    params.purpose = filters.status === "For Rent" ? "RENT" : "SALE";
-  }
-
-  if (filters.beds !== "all") {
-    params.bedrooms = Number(filters.beds);
-  }
-
-  if (filters.priceRange === "rental") {
-    params.purpose = "RENT";
-  } else if (filters.priceRange === "under-2500000") {
-    params.max_price = 2500000;
-  } else if (filters.priceRange === "2500000-5000000") {
-    params.min_price = 2500000;
-    params.max_price = 5000000;
-  } else if (filters.priceRange === "over-5000000") {
-    params.min_price = 5000000;
-  }
-
-  if (sort === "price-desc") {
-    params.ordering = "-price";
-  } else if (sort === "price-asc") {
-    params.ordering = "price";
-  }
-
-  return params;
 }
