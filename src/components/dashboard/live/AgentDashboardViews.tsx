@@ -603,7 +603,7 @@ function AgentStatusActions<TStatus extends string>({
   const normalizedCurrentStatus = safeText(currentStatus, "").toUpperCase();
 
   return (
-    <div className="flex flex-wrap gap-2 rounded-2xl border border-border bg-white p-3">
+    <div className="flex min-w-0 flex-wrap gap-2 rounded-2xl border border-border bg-white p-3">
       {actions.map(([status, label]) => {
         const isCurrent = normalizedCurrentStatus === status;
 
@@ -613,7 +613,7 @@ function AgentStatusActions<TStatus extends string>({
             type="button"
             size="sm"
             variant={isCurrent ? "default" : "outline"}
-            className={`rounded-xl ${isCurrent ? "" : "bg-white"}`}
+            className={`min-w-0 flex-1 rounded-xl sm:flex-none ${isCurrent ? "" : "bg-white"}`}
             disabled={Boolean(loading) || isCurrent}
             onClick={async () => {
               setLoading(status);

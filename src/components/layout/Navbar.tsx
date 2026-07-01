@@ -17,8 +17,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur-xl">
       <Container>
-        <nav className="flex h-[88px] items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3">
+        <nav className="flex h-[88px] min-w-0 items-center justify-between gap-3">
+          <Link href="/" className="group flex min-w-0 items-center gap-3">
             <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-800 text-white shadow-lg shadow-emerald-900/20">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.35),transparent_36%)]" />
               <span className="relative font-heading text-base font-extrabold tracking-tight">
@@ -26,18 +26,18 @@ export default function Navbar() {
               </span>
             </div>
 
-            <div className="leading-none">
+            <div className="min-w-0 leading-none">
               <div className="flex items-center gap-1.5">
-                <span className="font-heading text-[21px] font-bold tracking-[-0.03em] text-foreground">
+                <span className="truncate font-heading text-[19px] font-bold tracking-[-0.03em] text-foreground sm:text-[21px]">
                   PropertyFlow
                 </span>
 
-                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-bold text-primary">
+                <span className="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-bold text-primary">
                   AI
                 </span>
               </div>
 
-              <p className="mt-1.5 text-xs font-medium tracking-wide text-muted-foreground">
+              <p className="mt-1.5 truncate text-xs font-medium tracking-wide text-muted-foreground">
                 Real Estate Intelligence
               </p>
             </div>

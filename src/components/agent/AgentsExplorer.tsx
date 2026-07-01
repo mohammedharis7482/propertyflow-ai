@@ -115,19 +115,19 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
 
   return (
     <>
-      <div className="mb-8 rounded-[2rem] border border-border bg-white p-5 shadow-sm">
-        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="grid gap-3 md:grid-cols-[1fr_1fr]">
-            <label className="rounded-2xl border border-border bg-secondary p-4">
+      <div className="mb-8 max-w-full overflow-hidden rounded-[2rem] border border-border bg-white p-5 shadow-sm">
+        <div className="grid min-w-0 gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="grid min-w-0 gap-3 md:grid-cols-[1fr_1fr]">
+            <label className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Search agents
               </span>
-              <div className="mt-2 flex items-center gap-3">
-                <Search size={20} className="text-primary" />
+              <div className="mt-2 flex min-w-0 items-center gap-3">
+                <Search size={20} className="shrink-0 text-primary" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
+                  className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
                   placeholder="Name, location, speciality, language..."
                 />
                 {query && (
@@ -143,7 +143,7 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
               </div>
             </label>
 
-            <label className="rounded-2xl border border-border bg-secondary p-4">
+            <label className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Location
               </span>
@@ -165,22 +165,22 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
             </label>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row lg:justify-end">
             <Button
               variant="outline"
-              className="rounded-2xl lg:hidden"
+              className="w-full rounded-2xl sm:w-auto lg:hidden"
               onClick={() => setShowMobileFilters((open) => !open)}
             >
               <SlidersHorizontal size={18} className="mr-2" />
               Filters
             </Button>
 
-            <label className="flex h-11 items-center rounded-2xl border border-border bg-white px-4 text-sm font-semibold">
-              <Star size={17} className="mr-2 text-primary" />
+            <label className="flex h-11 min-w-0 items-center rounded-2xl border border-border bg-white px-4 text-sm font-semibold">
+              <Star size={17} className="mr-2 shrink-0 text-primary" />
               <select
                 value={sort}
                 onChange={(event) => setSort(event.target.value)}
-                className="bg-transparent text-foreground outline-none"
+                className="min-w-0 flex-1 truncate bg-transparent text-foreground outline-none"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -226,7 +226,7 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
       </div>
 
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
-        <div>
+        <div className="min-w-0">
           <h2 className="font-heading text-2xl font-bold">
             {filteredAgents.length} Verified Agents
           </h2>
@@ -238,13 +238,13 @@ export default function AgentsExplorer({ agents }: AgentsExplorerProps) {
         </div>
 
         {hasFilters && (
-          <Button variant="outline" className="rounded-2xl bg-white" onClick={resetFilters}>
+          <Button variant="outline" className="w-full rounded-2xl bg-white sm:w-auto" onClick={resetFilters}>
             Clear All
           </Button>
         )}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="hidden min-w-0 lg:block">
           <AgentFilters
             filters={filters}

@@ -68,7 +68,7 @@ export function useLiveData<T>(loader: () => Promise<T>) {
 
 export function DashboardSkeletonGrid({ count = 4 }: { count?: number }) {
   return (
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid min-w-0 gap-5 md:grid-cols-2 xl:grid-cols-4">
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
@@ -85,7 +85,7 @@ export function DashboardSkeletonGrid({ count = 4 }: { count?: number }) {
 
 export function DashboardPanelSkeleton({ rows = 3 }: { rows?: number }) {
   return (
-    <div className="rounded-[2rem] border border-border bg-white p-6 shadow-sm">
+    <div className="min-w-0 rounded-[2rem] border border-border bg-white p-6 shadow-sm">
       <div className="h-6 w-48 animate-pulse rounded-full bg-secondary" />
       <div className="mt-6 grid gap-4">
         {Array.from({ length: rows }).map((_, index) => (
@@ -107,7 +107,7 @@ export function DashboardErrorState({
   message?: string;
 }) {
   return (
-    <div className="rounded-[2rem] border border-red-100 bg-white p-8 text-center shadow-sm">
+    <div className="min-w-0 rounded-[2rem] border border-red-100 bg-white p-8 text-center shadow-sm">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600">
         <AlertCircle size={24} />
       </div>
@@ -129,7 +129,7 @@ export function DashboardEmptyPanel({
   description: string;
 }) {
   return (
-    <div className="rounded-[2rem] border border-dashed border-border bg-[#F8FAF9] p-10 text-center">
+    <div className="min-w-0 rounded-[2rem] border border-dashed border-border bg-[#F8FAF9] p-6 text-center sm:p-10">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-primary">
         <Icon size={24} />
       </div>
@@ -143,7 +143,7 @@ export function DashboardEmptyPanel({
 
 export function AgentProfileSetupState() {
   return (
-    <div className="rounded-[2rem] border border-border bg-white p-8 text-center shadow-sm">
+    <div className="min-w-0 rounded-[2rem] border border-border bg-white p-8 text-center shadow-sm">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-primary">
         <Inbox size={24} />
       </div>
@@ -159,7 +159,7 @@ export function AgentProfileSetupState() {
 
 export function DashboardUnauthorizedState() {
   return (
-    <div className="rounded-[2rem] border border-border bg-white p-8 text-center shadow-sm">
+    <div className="min-w-0 rounded-[2rem] border border-border bg-white p-8 text-center shadow-sm">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-700">
         <AlertCircle size={24} />
       </div>
@@ -185,11 +185,11 @@ export function MetricCard({
   highlight?: boolean;
 }) {
   return (
-    <div className="rounded-[2rem] border border-border bg-white p-6 shadow-sm">
+    <div className="min-w-0 rounded-[2rem] border border-border bg-white p-6 shadow-sm">
       <Icon size={24} className="text-primary" />
       <p className="mt-4 text-sm text-muted-foreground">{label}</p>
       <p
-        className={`mt-1 font-heading text-4xl font-bold ${
+        className={`mt-1 break-words font-heading text-3xl font-bold sm:text-4xl ${
           highlight ? "text-primary" : ""
         }`}
       >
@@ -207,7 +207,7 @@ export function StatusBadge({ value }: { value?: string | null }) {
 
   return (
     <span
-      className={`rounded-full px-3 py-1 text-xs font-semibold ${
+      className={`inline-flex max-w-full items-center truncate rounded-full px-3 py-1 text-xs font-semibold ${
         isWarm ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-primary"
       }`}
     >

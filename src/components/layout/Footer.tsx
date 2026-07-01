@@ -18,12 +18,12 @@ export default function Footer() {
       <Container>
         <div className="grid gap-12 py-14 lg:grid-cols-[1.5fr_.8fr_.9fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex min-w-0 items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
                 <Building2 size={22} />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-heading text-xl font-bold">
                   PropertyFlow AI
                 </p>
@@ -69,17 +69,17 @@ export default function Footer() {
           <div>
             <h4 className="font-heading text-sm font-bold">Contact</h4>
             <div className="mt-5 flex flex-col gap-4 text-sm text-muted-foreground">
-              <p className="flex items-center gap-3">
-                <MapPin size={18} className="text-primary" />
-                Dubai, UAE
+              <p className="flex min-w-0 items-center gap-3">
+                <MapPin size={18} className="shrink-0 text-primary" />
+                <span className="min-w-0 break-words">Dubai, UAE</span>
               </p>
-              <p className="flex items-center gap-3">
-                <Mail size={18} className="text-primary" />
-                hello@propertyflow.ai
+              <p className="flex min-w-0 items-center gap-3">
+                <Mail size={18} className="shrink-0 text-primary" />
+                <span className="min-w-0 break-words">hello@propertyflow.ai</span>
               </p>
-              <p className="flex items-center gap-3">
-                <Phone size={18} className="text-primary" />
-                +971 00 000 0000
+              <p className="flex min-w-0 items-center gap-3">
+                <Phone size={18} className="shrink-0 text-primary" />
+                <span className="min-w-0 break-words">+971 00 000 0000</span>
               </p>
             </div>
           </div>

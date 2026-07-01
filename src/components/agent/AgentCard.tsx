@@ -10,7 +10,7 @@ interface AgentCardProps {
 
 export default function AgentCard({ agent }: AgentCardProps) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/80">
+    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/80">
       <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
         <AgentImage
           src={agent.image}

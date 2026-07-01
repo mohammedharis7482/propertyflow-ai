@@ -23,8 +23,8 @@ export default function DashboardHero({
     <section className="relative mb-8 overflow-hidden rounded-[1.75rem] border border-border bg-white p-5 shadow-sm sm:rounded-[2rem] sm:p-8 lg:p-10">
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-sky-400" />
 
-      <div className="relative grid gap-8 lg:grid-cols-[1fr_280px] lg:items-center">
-        <div>
+      <div className="relative grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
+        <div className="min-w-0">
           <div className="mb-5 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-primary">
             <Sparkles size={16} className="mr-2" />
             {badge}
@@ -38,7 +38,7 @@ export default function DashboardHero({
             {description}
           </p>
 
-          <Button className="mt-7 rounded-2xl" asChild>
+          <Button className="mt-7 w-full rounded-2xl sm:w-auto" asChild>
             <Link href={href}>
               View AI Insights
               <ArrowRight size={17} className="ml-2" />
@@ -46,7 +46,7 @@ export default function DashboardHero({
           </Button>
         </div>
 
-        <div className="rounded-[1.75rem] border border-border bg-[#F8FAF9] p-6">
+        <div className="min-w-0 rounded-[1.75rem] border border-border bg-[#F8FAF9] p-6">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-primary">
             <Brain size={24} />
           </div>
@@ -56,9 +56,9 @@ export default function DashboardHero({
             {metric}
           </p>
 
-          <div className="mt-5 flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-sm text-primary">
+          <div className="mt-5 flex min-w-0 items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-sm text-primary">
             <TrendingUp size={16} />
-            Demand signal improving
+            <span className="min-w-0 truncate">Demand signal improving</span>
           </div>
         </div>
       </div>

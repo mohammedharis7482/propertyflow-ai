@@ -47,54 +47,54 @@ export default function SmartSearchSection() {
             </div>
           </div>
 
-          <div className="grid gap-3 lg:grid-cols-[1.3fr_1fr_1fr_.8fr_auto]">
-            <div className="rounded-2xl border border-border bg-secondary p-4">
+          <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,.8fr)_auto]">
+            <div className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Location
               </p>
-              <div className="mt-2 flex items-center gap-3">
-                <MapPin size={20} className="text-primary" />
-                <span className="font-medium text-foreground">
+              <div className="mt-2 flex min-w-0 items-center gap-3">
+                <MapPin size={20} className="shrink-0 text-primary" />
+                <span className="min-w-0 truncate font-medium text-foreground">
                   Dubai Marina, UAE
                 </span>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-secondary p-4">
+            <div className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Property Type
               </p>
-              <div className="mt-2 flex items-center gap-3">
-                <Building2 size={20} className="text-primary" />
-                <span className="font-medium text-foreground">
+              <div className="mt-2 flex min-w-0 items-center gap-3">
+                <Building2 size={20} className="shrink-0 text-primary" />
+                <span className="min-w-0 truncate font-medium text-foreground">
                   Villa / Apartment
                 </span>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-secondary p-4">
+            <div className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Price Range
               </p>
-              <div className="mt-2 flex items-center gap-3">
-                <SlidersHorizontal size={20} className="text-primary" />
-                <span className="font-medium text-foreground">
+              <div className="mt-2 flex min-w-0 items-center gap-3">
+                <SlidersHorizontal size={20} className="shrink-0 text-primary" />
+                <span className="min-w-0 truncate font-medium text-foreground">
                   AED 1M - 5M
                 </span>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-secondary p-4">
+            <div className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Bedrooms
               </p>
-              <div className="mt-2 flex items-center gap-3">
-                <Home size={20} className="text-primary" />
-                <span className="font-medium text-foreground">3+</span>
+              <div className="mt-2 flex min-w-0 items-center gap-3">
+                <Home size={20} className="shrink-0 text-primary" />
+                <span className="min-w-0 truncate font-medium text-foreground">3+</span>
               </div>
             </div>
 
-            <Button className="min-h-[76px] rounded-2xl px-8 text-base">
+            <Button className="min-h-[56px] w-full rounded-2xl px-8 text-base lg:min-h-[76px] lg:w-auto">
               <Search size={20} className="mr-2" />
               Search
             </Button>

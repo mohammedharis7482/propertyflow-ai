@@ -86,10 +86,31 @@
 
   html {
     @apply scroll-smooth;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    max-width: 100%;
+  }
+
+  :where(p, h1, h2, h3, h4, h5, h6, a, span) {
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -141,5 +162,9 @@
 
   .luxury-badge {
     @apply inline-flex items-center rounded-full border border-yellow-200 bg-yellow-50 px-3 py-1 text-sm font-medium text-yellow-800;
+  }
+
+  .dashboard-shell :where(header, main, nav, section, article, aside, div) {
+    min-width: 0;
   }
 }

@@ -108,7 +108,7 @@ export default function DashboardActionDrawer({
       </Button>
 
       {open && (
-        <div className="fixed inset-0 z-[80]">
+        <div className="fixed inset-0 z-[80] overflow-hidden">
           <button
             aria-label="Close action panel"
             className="absolute inset-0 bg-slate-950/30 backdrop-blur-[2px] transition"
@@ -116,11 +116,11 @@ export default function DashboardActionDrawer({
             type="button"
           />
 
-          <aside className="absolute bottom-0 right-0 top-auto flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-[2rem] border border-border bg-white shadow-2xl shadow-slate-950/10 sm:bottom-auto sm:right-5 sm:top-20 sm:max-h-[calc(100vh-6rem)] sm:w-[min(calc(100vw-2rem),500px)] sm:rounded-[2rem]">
+          <aside className="absolute bottom-0 right-0 top-auto flex max-h-[90vh] w-full max-w-full flex-col overflow-hidden rounded-t-[2rem] border border-border bg-white shadow-2xl shadow-slate-950/10 sm:bottom-auto sm:right-4 sm:top-20 sm:max-h-[calc(100vh-6rem)] sm:w-[min(calc(100vw-2rem),500px)] sm:rounded-[2rem]">
             <div className="shrink-0 border-b border-border px-5 py-5 sm:px-6">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex min-w-0 items-start justify-between gap-4">
                 <div className="min-w-0">
-                <h2 className="font-heading text-2xl font-bold">{title}</h2>
+                <h2 className="break-words font-heading text-2xl font-bold">{title}</h2>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">
                   {description}
                 </p>

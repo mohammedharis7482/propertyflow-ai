@@ -89,13 +89,13 @@ export default function DashboardSidebar({
         )}
       >
         <div className="flex h-20 items-center justify-between bg-white px-5">
-          <Link href="/" className="flex items-center gap-3" onClick={onClose}>
+          <Link href="/" className="flex min-w-0 items-center gap-3" onClick={onClose}>
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-sm font-extrabold text-white shadow-lg shadow-emerald-900/20">
               PF
             </div>
 
-            <div>
-              <p className="font-heading text-lg font-bold tracking-tight text-foreground">
+            <div className="min-w-0">
+              <p className="truncate font-heading text-lg font-bold tracking-tight text-foreground">
                 PropertyFlow
               </p>
               <p className="text-xs text-muted-foreground">AI Workspace</p>
@@ -136,14 +136,14 @@ export default function DashboardSidebar({
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition",
+                  "flex min-w-0 items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition",
                   active
                     ? "bg-emerald-50 text-primary"
                     : "text-muted-foreground hover:bg-[#F8FAF9] hover:text-foreground"
                 )}
               >
                 <Icon size={19} />
-                {item.label}
+                <span className="min-w-0 truncate">{item.label}</span>
               </Link>
             );
           })}

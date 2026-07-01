@@ -91,8 +91,8 @@ export default async function PropertyDetailsPage({
               </Button>
             </div>
 
-            <div className="grid gap-8 pb-10 sm:pb-12 lg:grid-cols-[1.1fr_.9fr] lg:items-end">
-              <div>
+            <div className="grid min-w-0 gap-8 pb-10 sm:pb-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:items-end">
+              <div className="min-w-0">
                 <div className="mb-4 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
                   {property.type}
                 </div>
@@ -127,7 +127,7 @@ export default async function PropertyDetailsPage({
 
         <section className="bg-white">
           <Container>
-            <div className="grid gap-4 py-6 sm:py-8 lg:grid-cols-[1.4fr_.6fr]">
+            <div className="grid min-w-0 gap-4 py-6 sm:py-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,.6fr)]">
               <div className="relative h-[300px] overflow-hidden rounded-[1.5rem] bg-secondary sm:h-[420px] sm:rounded-[2rem] lg:h-[520px]">
                 <Image
                   src={property.image}
@@ -161,9 +161,9 @@ export default async function PropertyDetailsPage({
 
         <Section className="bg-white">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
-              <div>
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
+              <div className="min-w-0">
+                <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                   <div className="rounded-2xl border border-border bg-secondary p-5">
                     <BedDouble size={22} className="text-primary" />
                     <p className="mt-3 break-words font-heading text-2xl font-bold leading-tight">
@@ -244,7 +244,7 @@ export default async function PropertyDetailsPage({
                 </div>
               </div>
 
-              <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+              <aside className="min-w-0 space-y-5 lg:sticky lg:top-28 lg:self-start">
                 <PropertyAIMatchCard slug={property.slug} />
 
                 <div className="rounded-[2rem] border border-border bg-white p-6 shadow-sm">

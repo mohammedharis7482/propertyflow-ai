@@ -54,7 +54,7 @@ export default function DashboardLayout({
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F6F8F7] p-4 sm:p-6">
-        <div className="mx-auto grid max-w-[1440px] gap-5 lg:grid-cols-[292px_minmax(0,1fr)]">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-5 lg:grid-cols-[292px_minmax(0,1fr)]">
           <div className="hidden rounded-[2rem] border border-border bg-white p-5 shadow-sm lg:block">
             <div className="h-11 w-11 rounded-2xl bg-emerald-50" />
             <div className="mt-8 space-y-3">
@@ -67,7 +67,7 @@ export default function DashboardLayout({
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-border bg-white p-6 shadow-sm">
+          <div className="min-w-0 rounded-[2rem] border border-border bg-white p-6 shadow-sm">
             <div className="h-8 w-48 rounded-full bg-[#F6F8F7]" />
             <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {Array.from({ length: 4 }).map((_, index) => (
@@ -93,7 +93,7 @@ export default function DashboardLayout({
 
   return (
     <div
-      className="min-h-screen overflow-x-clip bg-[#F6F8F7] lg:grid lg:grid-cols-[292px_minmax(0,1fr)]"
+      className="dashboard-shell min-h-screen max-w-full overflow-x-hidden bg-[#F6F8F7] lg:grid lg:grid-cols-[292px_minmax(0,1fr)]"
       data-required-role={requiredRole ?? role}
     >
       <DashboardSidebar
@@ -102,10 +102,10 @@ export default function DashboardLayout({
         onClose={() => setOpen(false)}
       />
 
-      <div className="min-w-0 bg-[#F6F8F7] lg:border-l lg:border-border">
+      <div className="min-w-0 max-w-full overflow-x-hidden bg-[#F6F8F7] lg:border-l lg:border-border">
         <DashboardTopbar role={role} onMenuClick={() => setOpen(true)} />
 
-        <main className="mx-auto w-full max-w-[1440px] px-4 py-5 sm:px-5 lg:px-8 lg:py-8 xl:px-10">
+        <main className="mx-auto w-full min-w-0 max-w-[1440px] overflow-x-hidden px-4 py-5 sm:px-5 lg:px-8 lg:py-8 xl:px-10">
           {children}
         </main>
       </div>

@@ -29,7 +29,7 @@ export default function PropertyListCard({ property }: PropertyListCardProps) {
   ];
 
   return (
-    <article className="group grid overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl lg:grid-cols-[260px_minmax(0,1fr)]">
+    <article className="group grid min-w-0 overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl lg:grid-cols-[260px_minmax(0,1fr)]">
       <Link
         href={`/properties/${property.slug}`}
         className="relative block min-h-[220px] overflow-hidden bg-secondary sm:min-h-[260px]"
@@ -56,7 +56,7 @@ export default function PropertyListCard({ property }: PropertyListCardProps) {
       </Link>
 
       <div className="flex flex-col p-4 sm:p-6">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
             <p className="line-clamp-1 text-sm font-semibold text-primary">
               {property.type}
@@ -132,12 +132,12 @@ export default function PropertyListCard({ property }: PropertyListCardProps) {
           })}
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button className="rounded-2xl" asChild>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button className="w-full rounded-2xl sm:w-auto" asChild>
             <Link href={`/properties/${property.slug}`}>View Details</Link>
           </Button>
 
-          <Button variant="outline" className="rounded-2xl" asChild>
+          <Button variant="outline" className="w-full rounded-2xl sm:w-auto" asChild>
             <Link href={`/properties/${property.slug}`}>Contact Agent</Link>
           </Button>
         </div>

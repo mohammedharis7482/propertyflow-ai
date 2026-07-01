@@ -227,7 +227,7 @@ export default function PropertyDetailsActions({
   }
 
   return (
-    <div className="mt-5 flex flex-col gap-3 sm:flex-row lg:justify-end">
+    <div className="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap lg:justify-end">
       <ActionMessage message={message} type={messageType} />
       <DashboardActionDrawer
         actionType="reply_inquiry"
@@ -238,7 +238,7 @@ export default function PropertyDetailsActions({
         successMessage="Inquiry submitted successfully"
         onSubmitAction={submitInquiry}
         icon={<MessageCircle size={18} className="mr-2" />}
-        buttonClassName="sm:w-auto"
+        buttonClassName="w-full sm:w-auto"
         initialValues={{
           name: user?.full_name ?? "",
           email: user?.email ?? "",

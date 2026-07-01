@@ -140,8 +140,8 @@ export default function DashboardTopbar({
   }, [notificationsOpen]);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-18 w-full max-w-[1440px] items-center justify-between gap-3 px-4 sm:h-20 sm:px-5 lg:px-8 xl:px-10">
+    <header className="sticky top-0 z-30 max-w-full overflow-x-clip border-b border-border bg-white/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-18 w-full min-w-0 max-w-[1440px] items-center justify-between gap-2 px-4 sm:h-20 sm:gap-3 sm:px-5 lg:px-8 xl:px-10">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <button
             onClick={onMenuClick}
@@ -162,7 +162,7 @@ export default function DashboardTopbar({
           </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
           <Button
             variant="outline"
             className="hidden rounded-2xl bg-white lg:inline-flex"
@@ -200,9 +200,9 @@ export default function DashboardTopbar({
             </button>
 
             {notificationsOpen && (
-              <div className="absolute right-0 top-14 z-50 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-2xl shadow-slate-200/80">
-                <div className="flex items-center justify-between gap-3 border-b border-border p-4">
-                  <div>
+              <div className="fixed inset-x-4 top-[4.75rem] z-50 max-h-[calc(100vh-6rem)] overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-2xl shadow-slate-200/80 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-[calc(100vw-2rem)] sm:max-w-sm">
+                <div className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0">
                     <p className="font-heading text-lg font-bold">Notifications</p>
                     <p className="text-xs text-muted-foreground">
                       {unreadCount} unread update{unreadCount === 1 ? "" : "s"}
@@ -213,7 +213,7 @@ export default function DashboardTopbar({
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="rounded-xl bg-white"
+                    className="w-full rounded-xl bg-white sm:w-auto"
                     disabled={notificationActionId === "all" || unreadCount === 0}
                     onClick={handleMarkAllRead}
                   >
@@ -240,7 +240,7 @@ export default function DashboardTopbar({
                           type="button"
                           disabled={notificationActionId === notification.id}
                           onClick={() => handleMarkRead(notification)}
-                          className={`rounded-2xl border p-4 text-left transition hover:border-emerald-200 hover:bg-emerald-50/40 disabled:opacity-70 ${
+                          className={`w-full rounded-2xl border p-4 text-left transition hover:border-emerald-200 hover:bg-emerald-50/40 disabled:opacity-70 ${
                             notification.is_read
                               ? "border-transparent bg-[#F8FAF9]"
                               : "border-emerald-100 bg-emerald-50/50"
@@ -287,7 +287,7 @@ export default function DashboardTopbar({
             )}
           </div>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-white p-1.5 shadow-sm sm:px-3 sm:py-2">
+          <div className="flex min-w-0 items-center gap-2 rounded-2xl border border-border bg-white p-1.5 shadow-sm sm:gap-3 sm:px-3 sm:py-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-xs font-bold text-white">
               {getInitials(user?.full_name)}
             </div>

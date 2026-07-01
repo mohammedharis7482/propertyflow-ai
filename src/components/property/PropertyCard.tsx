@@ -41,7 +41,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   ];
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/80">
+    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/80">
       <Link href={`/properties/${property.slug}`} className="block">
         <div className="relative aspect-[1.22/1] overflow-hidden bg-secondary">
           <Image

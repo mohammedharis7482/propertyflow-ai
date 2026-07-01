@@ -108,7 +108,7 @@ export default function AIAssistantPanel({
   }
 
   return (
-    <div className="fixed inset-0 z-[90]">
+    <div className="fixed inset-0 z-[90] overflow-hidden">
       <button
         type="button"
         aria-label="Close AI assistant"
@@ -116,9 +116,9 @@ export default function AIAssistantPanel({
         onClick={() => onOpenChange(false)}
       />
 
-      <aside className="absolute bottom-0 right-0 top-auto flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-[2rem] border border-border bg-white shadow-2xl shadow-slate-950/10 sm:bottom-auto sm:right-5 sm:top-20 sm:max-h-[calc(100vh-6rem)] sm:w-[min(calc(100vw-2rem),520px)] sm:rounded-[2rem]">
+      <aside className="absolute bottom-0 right-0 top-auto flex max-h-[90vh] w-full max-w-full flex-col overflow-hidden rounded-t-[2rem] border border-border bg-white shadow-2xl shadow-slate-950/10 sm:bottom-auto sm:right-4 sm:top-20 sm:max-h-[calc(100vh-6rem)] sm:w-[min(calc(100vw-2rem),520px)] sm:rounded-[2rem]">
         <div className="shrink-0 border-b border-border px-5 py-5 sm:px-6">
-          <div className="flex items-start justify-between gap-4">
+            <div className="flex min-w-0 items-start justify-between gap-4">
             <div className="min-w-0">
               <AIBadge label="PropertyFlow signal-based assistant" />
               <h2 className="mt-3 font-heading text-2xl font-bold">
@@ -141,8 +141,8 @@ export default function AIAssistantPanel({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
-          <div className="rounded-[1.5rem] bg-[#F8FAF9] p-5">
-            <div className="flex items-center gap-3">
+          <div className="min-w-0 rounded-[1.5rem] bg-[#F8FAF9] p-5">
+            <div className="flex min-w-0 items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
                 <Bot size={20} />
               </div>
@@ -164,7 +164,7 @@ export default function AIAssistantPanel({
                     type="button"
                     disabled={Boolean(loadingKey)}
                     onClick={() => handlePrompt(prompt.key)}
-                    className="flex items-center gap-3 rounded-2xl border border-border bg-white p-4 text-left text-sm font-semibold transition hover:border-emerald-200 hover:bg-emerald-50/40 disabled:opacity-70"
+                    className="flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-white p-4 text-left text-sm font-semibold transition hover:border-emerald-200 hover:bg-emerald-50/40 disabled:opacity-70"
                   >
                     <Icon size={17} className="shrink-0 text-primary" />
                     <span className="min-w-0 flex-1 truncate">{prompt.label}</span>

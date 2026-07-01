@@ -18,23 +18,23 @@ export default function DashboardStatCard({ stat }: DashboardStatCardProps) {
       : Minus;
 
   return (
-    <div className="group relative overflow-hidden rounded-[1.75rem] border border-border bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:rounded-[2rem] sm:p-6">
-      <div className="flex items-start justify-between">
+    <div className="group relative min-w-0 overflow-hidden rounded-[1.75rem] border border-border bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:rounded-[2rem] sm:p-6">
+      <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-primary">
           <Icon size={23} />
         </div>
 
-        <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-primary">
+        <span className="flex min-w-0 items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-primary">
           <TrendIcon size={14} />
-          {stat.change}
+          <span className="truncate">{stat.change}</span>
         </span>
       </div>
 
-      <p className="mt-6 text-sm font-medium text-muted-foreground">
+      <p className="mt-6 line-clamp-2 text-sm font-medium text-muted-foreground">
         {stat.title}
       </p>
 
-      <p className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      <p className="mt-2 break-words font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         {stat.value}
       </p>
 

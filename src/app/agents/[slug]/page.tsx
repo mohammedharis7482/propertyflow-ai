@@ -77,8 +77,8 @@ export default async function AgentDetailsPage({
               </Button>
             </div>
 
-            <div className="grid gap-8 pb-12 sm:gap-10 sm:pb-14 lg:grid-cols-[360px_1fr] lg:items-end">
-              <div className="relative overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-2xl shadow-slate-200/70">
+            <div className="grid min-w-0 gap-8 pb-12 sm:gap-10 sm:pb-14 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-end">
+              <div className="relative min-w-0 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-2xl shadow-slate-200/70">
                 <div className="relative h-[300px] overflow-hidden rounded-[1.5rem] bg-secondary sm:h-[420px]">
                   <AgentImage
                     src={agent.image}
@@ -98,7 +98,7 @@ export default async function AgentDetailsPage({
                 </div>
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <div className="mb-5 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
                   <BadgeCheck size={16} className="mr-2" />
                   Verified Property Advisor
@@ -157,8 +157,8 @@ export default async function AgentDetailsPage({
 
         <Section className="bg-white">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
-              <div>
+            <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
+              <div className="min-w-0">
                 <div>
                   <h2 className="font-heading text-3xl font-bold">
                     Specialities
@@ -199,7 +199,7 @@ export default async function AgentDetailsPage({
                     this advisor.
                   </p>
 
-                  <div className="mt-6 grid gap-6 md:grid-cols-2">
+                  <div className="mt-6 grid min-w-0 gap-6 md:grid-cols-2">
                     {featuredProperties.slice(0, 2).map((property) => (
                       <PropertyCard key={property.id} property={property} />
                     ))}
@@ -207,7 +207,7 @@ export default async function AgentDetailsPage({
                 </div>
               </div>
 
-              <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+              <aside className="min-w-0 space-y-5 lg:sticky lg:top-28 lg:self-start">
                 <div className="rounded-[2rem] border border-border bg-white p-6 shadow-xl shadow-slate-200/70">
                   <h3 className="font-heading text-xl font-bold">
                     Contact Agent

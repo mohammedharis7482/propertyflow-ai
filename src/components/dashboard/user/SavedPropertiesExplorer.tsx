@@ -69,19 +69,19 @@ export default function SavedPropertiesExplorer({
 
   return (
     <>
-      <div className="mt-8 rounded-[2rem] border border-border bg-white p-5 shadow-sm">
-        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-          <label className="rounded-2xl border border-border bg-[#F8FAF9] p-4">
+      <div className="mt-8 max-w-full overflow-hidden rounded-[2rem] border border-border bg-white p-5 shadow-sm">
+        <div className="grid min-w-0 gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <label className="min-w-0 rounded-2xl border border-border bg-[#F8FAF9] p-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Search saved properties
             </span>
 
-            <div className="mt-2 flex items-center gap-3">
-              <Search size={20} className="text-primary" />
+            <div className="mt-2 flex min-w-0 items-center gap-3">
+              <Search size={20} className="shrink-0 text-primary" />
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className="w-full bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
+                className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
                 placeholder="Search by property, location, type, or amenity..."
               />
               {query && (
@@ -97,9 +97,9 @@ export default function SavedPropertiesExplorer({
             </div>
           </label>
 
-          <div className="grid gap-3 sm:flex sm:justify-end">
+          <div className="grid min-w-0 gap-3 sm:flex sm:flex-wrap sm:justify-end">
             <label className="flex h-11 min-w-0 items-center rounded-2xl border border-border bg-white px-4 text-sm font-semibold">
-              <SlidersHorizontal size={18} className="mr-2 text-primary" />
+              <SlidersHorizontal size={18} className="mr-2 shrink-0 text-primary" />
               <select
                 value={filter}
                 onChange={(event) => setFilter(event.target.value)}
@@ -123,7 +123,7 @@ export default function SavedPropertiesExplorer({
 
       <div className="mt-8 rounded-[2rem] border border-border bg-white p-6 shadow-sm">
         <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-          <div>
+          <div className="min-w-0">
             <h2 className="font-heading text-2xl font-bold">
               Saved Properties
             </h2>
@@ -135,7 +135,7 @@ export default function SavedPropertiesExplorer({
           {(query || filter !== "all") && (
             <Button
               variant="outline"
-              className="rounded-2xl bg-white"
+              className="w-full rounded-2xl bg-white sm:w-auto"
               onClick={reset}
             >
               Clear
@@ -192,8 +192,8 @@ function SavedPropertyRow({
   ];
 
   return (
-    <article className="group overflow-hidden rounded-[1.75rem] border border-border bg-[#F8FAF9] p-3 transition hover:border-emerald-200 hover:bg-white hover:shadow-lg sm:p-4">
-      <div className="grid gap-5 lg:grid-cols-[240px_minmax(0,1fr)_190px] lg:items-stretch xl:grid-cols-[260px_minmax(0,1fr)_204px]">
+    <article className="group min-w-0 overflow-hidden rounded-[1.75rem] border border-border bg-[#F8FAF9] p-3 transition hover:border-emerald-200 hover:bg-white hover:shadow-lg sm:p-4">
+      <div className="grid min-w-0 gap-5 lg:grid-cols-[240px_minmax(0,1fr)_190px] lg:items-stretch xl:grid-cols-[260px_minmax(0,1fr)_204px]">
         <Link
           href={`/properties/${property.slug}`}
           className="relative block h-48 overflow-hidden rounded-[1.35rem] bg-secondary md:h-44 lg:h-full lg:min-h-[176px]"
@@ -219,7 +219,7 @@ function SavedPropertyRow({
         </Link>
 
         <div className="flex min-w-0 flex-col justify-center px-1 py-1 lg:py-3">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex min-w-0 flex-wrap items-center gap-3">
             <p className="line-clamp-1 text-sm font-semibold text-primary">
               {property.type}
             </p>
@@ -239,16 +239,16 @@ function SavedPropertyRow({
             <span className="line-clamp-2">{property.location}</span>
           </p>
 
-          <div className="mt-4 grid gap-2 sm:grid-cols-3">
+          <div className="mt-4 grid min-w-0 gap-2 sm:grid-cols-3">
             {stats.map((stat) => {
               const Icon = stat.icon;
 
               return (
                 <div
                   key={stat.label}
-                  className="flex min-h-[58px] items-center gap-2 rounded-2xl bg-white px-3 py-2"
+                  className="flex min-h-[58px] min-w-0 items-center gap-2 rounded-2xl bg-white px-3 py-2"
                 >
-                  <Icon size={15} className="text-primary" />
+                  <Icon size={15} className="shrink-0 text-primary" />
                   <span className="line-clamp-2 text-sm font-bold leading-tight text-foreground">
                     {stat.value}
                   </span>
@@ -261,8 +261,8 @@ function SavedPropertyRow({
           </div>
         </div>
 
-        <div className="grid gap-3 rounded-[1.35rem] bg-white p-4 sm:grid-cols-[1fr_auto_auto] sm:items-center lg:flex lg:min-w-0 lg:flex-col lg:items-stretch lg:justify-center">
-          <div>
+        <div className="grid min-w-0 gap-3 rounded-[1.35rem] bg-white p-4 sm:grid-cols-[1fr_auto_auto] sm:items-center lg:flex lg:min-w-0 lg:flex-col lg:items-stretch lg:justify-center">
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Saved Value
             </p>
@@ -271,14 +271,14 @@ function SavedPropertyRow({
             </p>
           </div>
 
-          <Button className="h-10 rounded-2xl px-4 lg:w-full" asChild>
+          <Button className="h-10 w-full rounded-2xl px-4 sm:w-auto lg:w-full" asChild>
             <Link href={`/properties/${property.slug}`}>
               View
               <ArrowRight size={16} className="ml-2" />
             </Link>
           </Button>
 
-          <Button variant="outline" className="h-10 rounded-2xl bg-white px-4 lg:w-full" asChild>
+          <Button variant="outline" className="h-10 w-full rounded-2xl bg-white px-4 sm:w-auto lg:w-full" asChild>
             <Link href="/dashboard/user/appointments">Schedule</Link>
           </Button>
 
@@ -286,7 +286,7 @@ function SavedPropertyRow({
             <Button
               type="button"
               variant="outline"
-              className="h-10 rounded-2xl bg-white px-4 lg:w-full"
+              className="h-10 w-full rounded-2xl bg-white px-4 sm:w-auto lg:w-full"
               disabled={removing}
               onClick={async () => {
                 setRemoving(true);

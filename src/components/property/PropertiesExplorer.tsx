@@ -106,18 +106,18 @@ export default function PropertiesExplorer({
 
   return (
     <>
-      <div className="mb-8 rounded-[2rem] border border-border bg-white p-4 shadow-sm">
-        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-          <label className="rounded-2xl border border-border bg-secondary p-4">
+      <div className="mb-8 max-w-full overflow-hidden rounded-[2rem] border border-border bg-white p-4 shadow-sm">
+        <div className="grid min-w-0 gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <label className="min-w-0 rounded-2xl border border-border bg-secondary p-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Search properties
             </span>
-            <div className="mt-2 flex items-center gap-3">
-              <Search size={20} className="text-primary" />
+            <div className="mt-2 flex min-w-0 items-center gap-3">
+              <Search size={20} className="shrink-0 text-primary" />
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className="w-full bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
+                className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-foreground outline-none placeholder:text-muted-foreground"
                 placeholder="Dubai Marina, Palm Jumeirah, Business Bay..."
               />
               {query && (
@@ -133,22 +133,22 @@ export default function PropertiesExplorer({
             </div>
           </label>
 
-          <div className="flex gap-3">
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row lg:justify-end">
             <Button
               variant="outline"
-              className="rounded-2xl lg:hidden"
+              className="w-full rounded-2xl sm:w-auto lg:hidden"
               onClick={() => setShowMobileFilters((open) => !open)}
             >
               <SlidersHorizontal size={18} className="mr-2" />
               Filters
             </Button>
 
-            <label className="flex h-11 items-center rounded-2xl border border-border bg-white px-4 text-sm font-semibold">
-              <span className="mr-2 text-muted-foreground">Sort</span>
+            <label className="flex h-11 min-w-0 items-center rounded-2xl border border-border bg-white px-4 text-sm font-semibold">
+              <span className="mr-2 shrink-0 text-muted-foreground">Sort</span>
               <select
                 value={sort}
                 onChange={(event) => setSort(event.target.value)}
-                className="bg-transparent text-foreground outline-none"
+                className="min-w-0 flex-1 truncate bg-transparent text-foreground outline-none"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -176,7 +176,7 @@ export default function PropertiesExplorer({
       </div>
 
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
-        <div>
+        <div className="min-w-0">
           <h2 className="font-heading text-2xl font-bold">
             {filteredProperties.length} Properties Found
           </h2>
@@ -188,13 +188,13 @@ export default function PropertiesExplorer({
         </div>
 
         {hasFilters && (
-          <Button variant="outline" className="rounded-2xl bg-white" onClick={resetFilters}>
+          <Button variant="outline" className="w-full rounded-2xl bg-white sm:w-auto" onClick={resetFilters}>
             Clear All
           </Button>
         )}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="hidden min-w-0 lg:block">
           <PropertyFilters
             filters={filters}
