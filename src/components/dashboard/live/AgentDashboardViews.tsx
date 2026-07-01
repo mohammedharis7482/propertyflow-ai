@@ -602,32 +602,54 @@ function AgentStatusActions<TStatus extends string>({
   const [loading, setLoading] = useState<TStatus | null>(null);
   const normalizedCurrentStatus = safeText(currentStatus, "").toUpperCase();
 
-  return (
-    <div className="flex min-w-0 flex-wrap gap-2 rounded-2xl border border-border bg-white p-3">
-      {actions.map(([status, label]) => {
-        const isCurrent = normalizedCurrentStatus === status;
+  async function handleStatusChange(status: TStatus) {
+    setLoading(status);
+    try {
+      await onStatusChange(id, status);
+    } finally {
+      setLoading(null);
+    }
+  }
 
-        return (
-          <Button
-            key={status}
-            type="button"
-            size="sm"
-            variant={isCurrent ? "default" : "outline"}
-            className={`min-w-0 flex-1 rounded-xl sm:flex-none ${isCurrent ? "" : "bg-white"}`}
-            disabled={Boolean(loading) || isCurrent}
-            onClick={async () => {
-              setLoading(status);
-              try {
-                await onStatusChange(id, status);
-              } finally {
-                setLoading(null);
-              }
-            }}
-          >
-            {loading === status ? "Updating..." : label}
-          </Button>
-        );
-      })}
+  return (
+    <div className="min-w-0 rounded-2xl border border-border bg-white p-3">
+      <label className="block sm:hidden">
+        <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Update status
+        </span>
+        <select
+          value={normalizedCurrentStatus}
+          disabled={Boolean(loading)}
+          onChange={(event) => handleStatusChange(event.target.value as TStatus)}
+          className="h-11 w-full min-w-0 rounded-xl border border-border bg-[#F8FAF9] px-3 text-sm font-semibold text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-emerald-100"
+        >
+          {actions.map(([status, label]) => (
+            <option key={status} value={status}>
+              {loading === status ? "Updating..." : label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <div className="hidden min-w-0 flex-wrap gap-2 sm:flex">
+        {actions.map(([status, label]) => {
+          const isCurrent = normalizedCurrentStatus === status;
+
+          return (
+            <Button
+              key={status}
+              type="button"
+              size="sm"
+              variant={isCurrent ? "default" : "outline"}
+              className={`min-w-0 rounded-xl ${isCurrent ? "" : "bg-white"}`}
+              disabled={Boolean(loading) || isCurrent}
+              onClick={() => handleStatusChange(status)}
+            >
+              {loading === status ? "Updating..." : label}
+            </Button>
+          );
+        })}
+      </div>
     </div>
   );
 }

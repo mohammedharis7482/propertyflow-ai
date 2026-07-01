@@ -17,27 +17,27 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur-xl">
       <Container>
-        <nav className="flex h-[88px] min-w-0 items-center justify-between gap-3">
+        <nav className="flex h-16 min-w-0 items-center justify-between gap-3 sm:h-[76px] lg:h-[88px]">
           <Link href="/" className="group flex min-w-0 items-center gap-3">
-            <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-800 text-white shadow-lg shadow-emerald-900/20">
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-800 text-white shadow-lg shadow-emerald-900/20 sm:h-11 sm:w-11 sm:rounded-2xl lg:h-12 lg:w-12">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.35),transparent_36%)]" />
-              <span className="relative font-heading text-base font-extrabold tracking-tight">
+              <span className="relative font-heading text-sm font-extrabold tracking-tight sm:text-base">
                 PF
               </span>
             </div>
 
             <div className="min-w-0 leading-none">
               <div className="flex items-center gap-1.5">
-                <span className="truncate font-heading text-[19px] font-bold tracking-[-0.03em] text-foreground sm:text-[21px]">
+                <span className="truncate font-heading text-[17px] font-bold tracking-[-0.03em] text-foreground sm:text-[20px] lg:text-[21px]">
                   PropertyFlow
                 </span>
 
-                <span className="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-bold text-primary">
+                <span className="shrink-0 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-primary sm:px-2 sm:text-xs">
                   AI
                 </span>
               </div>
 
-              <p className="mt-1.5 truncate text-xs font-medium tracking-wide text-muted-foreground">
+              <p className="mt-1 truncate text-[11px] font-medium tracking-wide text-muted-foreground sm:mt-1.5 sm:text-xs">
                 Real Estate Intelligence
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white shadow-sm lg:hidden"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-white shadow-sm sm:h-11 sm:w-11 sm:rounded-2xl lg:hidden"
             aria-label="Toggle mobile menu"
           >
             {open ? <X size={21} /> : <Menu size={21} />}
@@ -99,11 +99,11 @@ export default function Navbar() {
         <div
           className={cn(
             "grid overflow-hidden transition-all duration-300 lg:hidden",
-            open ? "grid-rows-[1fr] pb-6" : "grid-rows-[0fr]"
+            open ? "grid-rows-[1fr] pb-4 sm:pb-6" : "grid-rows-[0fr]"
           )}
         >
           <div className="min-h-0">
-            <div className="rounded-[1.5rem] border border-border bg-white p-3 shadow-xl">
+            <div className="rounded-[1.35rem] border border-border bg-white p-2.5 shadow-xl sm:rounded-[1.5rem] sm:p-3">
               {mainNavigation.map((item) => {
                 const active =
                   item.href === "/"
@@ -116,7 +116,7 @@ export default function Navbar() {
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      "flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition",
+                      "flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition sm:rounded-2xl sm:px-4 sm:py-3",
                       active
                         ? "bg-emerald-50 text-primary"
                         : "text-muted-foreground hover:bg-secondary hover:text-foreground"

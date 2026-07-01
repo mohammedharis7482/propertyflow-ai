@@ -88,14 +88,14 @@ export default function DashboardSidebar({
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="flex h-20 items-center justify-between bg-white px-5">
+        <div className="flex h-16 items-center justify-between bg-white px-4 lg:h-20 lg:px-5">
           <Link href="/" className="flex min-w-0 items-center gap-3" onClick={onClose}>
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-sm font-extrabold text-white shadow-lg shadow-emerald-900/20">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-xs font-extrabold text-white shadow-lg shadow-emerald-900/20 lg:h-11 lg:w-11 lg:rounded-2xl lg:text-sm">
               PF
             </div>
 
             <div className="min-w-0">
-              <p className="truncate font-heading text-lg font-bold tracking-tight text-foreground">
+              <p className="truncate font-heading text-base font-bold tracking-tight text-foreground lg:text-lg">
                 PropertyFlow
               </p>
               <p className="text-xs text-muted-foreground">AI Workspace</p>
@@ -104,25 +104,25 @@ export default function DashboardSidebar({
 
           <button
             onClick={onClose}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border lg:hidden"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-border lg:hidden"
             aria-label="Close dashboard menu"
           >
             <X size={18} />
           </button>
         </div>
 
-        <div className="p-4">
-          <div className="rounded-[1.4rem] border border-border bg-[#F8FAF9] p-4">
+        <div className="p-3 lg:p-4">
+          <div className="rounded-[1.15rem] border border-border bg-[#F8FAF9] p-3 lg:rounded-[1.4rem] lg:p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Current Role
             </p>
-            <p className="mt-1 font-heading text-lg font-bold capitalize text-foreground">
+            <p className="mt-1 font-heading text-base font-bold capitalize text-foreground lg:text-lg">
               {role} Dashboard
             </p>
           </div>
         </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-4 pb-4">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-3 lg:px-4 lg:pb-4">
           {items.map((item) => {
             const Icon = item.icon;
             const active =
@@ -136,7 +136,7 @@ export default function DashboardSidebar({
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "flex min-w-0 items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition",
+                  "flex min-w-0 items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition lg:rounded-2xl lg:px-4 lg:py-3",
                   active
                     ? "bg-emerald-50 text-primary"
                     : "text-muted-foreground hover:bg-[#F8FAF9] hover:text-foreground"
@@ -149,24 +149,28 @@ export default function DashboardSidebar({
           })}
         </nav>
 
-        <div className="p-4 pt-0">
-          <div className="rounded-[1.5rem] border border-border bg-[#F8FAF9] p-5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
-              <Bot size={20} />
+        <div className="p-3 pt-0 lg:p-4 lg:pt-0">
+          <div className="rounded-[1.15rem] border border-border bg-[#F8FAF9] p-3 lg:rounded-[1.5rem] lg:p-5">
+            <div className="flex items-center gap-3 lg:block">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-primary shadow-sm lg:h-10 lg:w-10 lg:rounded-2xl">
+                <Bot size={17} className="lg:size-5" />
+              </div>
+
+              <div className="min-w-0">
+                <h3 className="font-heading text-sm font-bold text-foreground lg:mt-4 lg:text-base">
+                  AI Command Center
+                </h3>
+
+                <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground lg:mt-2 lg:line-clamp-none lg:leading-6">
+                  Property matches, leads, ROI, and demand.
+                </p>
+              </div>
             </div>
-
-            <h3 className="mt-4 font-heading text-base font-bold text-foreground">
-              AI Command Center
-            </h3>
-
-            <p className="mt-2 text-xs leading-6 text-muted-foreground">
-              Ask about property matches, leads, ROI signals, and market demand.
-            </p>
 
             <Link
               href={aiHref}
               onClick={onClose}
-              className="mt-4 block w-full rounded-2xl bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white"
+              className="mt-3 block w-full rounded-xl bg-primary px-3 py-2 text-center text-xs font-semibold text-white lg:mt-4 lg:rounded-2xl lg:px-4 lg:py-2.5 lg:text-sm"
             >
               Ask AI
             </Link>

@@ -141,11 +141,11 @@ export default function DashboardTopbar({
 
   return (
     <header className="sticky top-0 z-30 max-w-full overflow-x-clip border-b border-border bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-18 w-full min-w-0 max-w-[1440px] items-center justify-between gap-2 px-4 sm:h-20 sm:gap-3 sm:px-5 lg:px-8 xl:px-10">
+      <div className="mx-auto flex h-14 w-full min-w-0 max-w-[1440px] items-center justify-between gap-2 px-3 sm:h-16 sm:gap-3 sm:px-5 lg:h-20 lg:px-8 xl:px-10">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <button
             onClick={onMenuClick}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-white lg:hidden"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-white lg:hidden"
             aria-label="Open dashboard menu"
           >
             <Menu size={20} />
@@ -188,7 +188,7 @@ export default function DashboardTopbar({
             <button
               type="button"
               onClick={handleNotificationsClick}
-              className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white shadow-sm"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-white shadow-sm sm:h-11 sm:w-11 sm:rounded-2xl"
               aria-label="Open notifications"
             >
               <Bell size={19} />
@@ -200,7 +200,7 @@ export default function DashboardTopbar({
             </button>
 
             {notificationsOpen && (
-              <div className="fixed inset-x-4 top-[4.75rem] z-50 max-h-[calc(100vh-6rem)] overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-2xl shadow-slate-200/80 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-[calc(100vw-2rem)] sm:max-w-sm">
+              <div className="fixed inset-x-3 top-[3.75rem] z-50 max-h-[calc(100vh-5rem)] overflow-hidden rounded-[1.35rem] border border-border bg-white shadow-2xl shadow-slate-200/80 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-[calc(100vw-2rem)] sm:max-w-sm sm:rounded-[1.5rem]">
                 <div className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0">
                     <p className="font-heading text-lg font-bold">Notifications</p>
@@ -287,8 +287,8 @@ export default function DashboardTopbar({
             )}
           </div>
 
-          <div className="flex min-w-0 items-center gap-2 rounded-2xl border border-border bg-white p-1.5 shadow-sm sm:gap-3 sm:px-3 sm:py-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-xs font-bold text-white">
+          <div className="flex min-w-0 items-center gap-2 rounded-xl border border-border bg-white p-1 shadow-sm sm:gap-3 sm:rounded-2xl sm:px-3 sm:py-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-white sm:h-9 sm:w-9 sm:rounded-xl sm:text-xs">
               {getInitials(user?.full_name)}
             </div>
 
@@ -305,7 +305,7 @@ export default function DashboardTopbar({
           <button
             type="button"
             onClick={handleLogout}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white text-muted-foreground shadow-sm transition hover:text-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground shadow-sm transition hover:text-primary sm:h-11 sm:w-11 sm:rounded-2xl"
             aria-label="Log out"
           >
             <LogOut size={18} />
@@ -313,11 +313,11 @@ export default function DashboardTopbar({
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1440px] px-4 pb-4 sm:px-5 lg:hidden">
-        <label className="flex h-12 items-center gap-3 rounded-2xl border border-border bg-[#F6F8F7] px-4">
-          <Search size={18} className="shrink-0 text-muted-foreground" />
+      <div className="mx-auto w-full max-w-[1440px] px-3 pb-3 sm:px-5 sm:pb-4 lg:hidden">
+        <label className="flex h-10 items-center gap-2 rounded-xl border border-border bg-[#F6F8F7] px-3 sm:h-11 sm:gap-3 sm:rounded-2xl sm:px-4">
+          <Search size={16} className="shrink-0 text-muted-foreground sm:size-[18px]" />
           <input
-            className="min-w-0 flex-1 bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-muted-foreground"
+            className="min-w-0 flex-1 bg-transparent text-xs font-medium text-foreground outline-none placeholder:text-muted-foreground sm:text-sm"
             placeholder="Search workspace..."
           />
         </label>
