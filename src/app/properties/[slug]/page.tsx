@@ -24,6 +24,8 @@ import { Button } from "@/components/ui/button";
 import { getPropertyBySlug } from "@/services/property.service";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const dynamicParams = true;
 
 interface PropertyDetailsPageProps {
   params: Promise<{

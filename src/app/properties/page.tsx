@@ -6,6 +6,7 @@ import PropertiesExplorer from "@/components/property/PropertiesExplorer";
 import { getProperties } from "@/services/property.service";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function PropertiesPage() {
   const properties = await getProperties();

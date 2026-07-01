@@ -1,4 +1,4 @@
-import { API_BASE_URL, apiFetch, unwrapPaginated } from "@/lib/api";
+import { API_BASE_URL, ApiError, apiFetch, unwrapPaginated } from "@/lib/api";
 import { topAgents } from "@/data/agents";
 import {
   getPremiumAgentFallbackImage,
@@ -47,12 +47,18 @@ export async function getFeaturedAgents() {
 
 export async function getAgentBySlug(slug: string) {
   try {
-    const agent = await apiFetch<BackendAgentDetail>(`/agents/${slug}/`);
+    const agent = await apiFetch<BackendAgentDetail>(
+      `/agents/${encodeURIComponent(slug)}/`
+    );
 
     return normalizeAgent(agent);
   } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      return null;
+    }
+
     console.error(`Failed to load agent ${slug} from API`, error);
-    return null;
+    throw error;
   }
 }
 

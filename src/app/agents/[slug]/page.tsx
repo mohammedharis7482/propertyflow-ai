@@ -6,9 +6,11 @@ import {
   BriefcaseBusiness,
   Languages,
   MapPin,
+  Sparkles,
   Star,
 } from "lucide-react";
 
+import { ApiError } from "@/lib/api";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
@@ -21,6 +23,8 @@ import { getAgentBySlug } from "@/services/agent.service";
 import { getFeaturedProperties } from "@/services/property.service";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const dynamicParams = true;
 
 export default async function AgentDetailsPage({
   params,
@@ -29,10 +33,21 @@ export default async function AgentDetailsPage({
 }) {
   const { slug } = await params;
 
-  const [agent, featuredProperties] = await Promise.all([
-    getAgentBySlug(slug),
-    getFeaturedProperties(),
-  ]);
+  let agent;
+  let featuredProperties;
+
+  try {
+    [agent, featuredProperties] = await Promise.all([
+      getAgentBySlug(slug),
+      getFeaturedProperties(),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      notFound();
+    }
+
+    return <AgentDetailError />;
+  }
 
   if (!agent) {
     notFound();
@@ -243,6 +258,36 @@ export default async function AgentDetailsPage({
         </Section>
       </main>
 
+      <Footer />
+    </>
+  );
+}
+
+function AgentDetailError() {
+  return (
+    <>
+      <Navbar />
+      <main className="bg-[#F8FAF9]">
+        <Container>
+          <div className="flex min-h-[62vh] items-center justify-center py-16">
+            <div className="max-w-xl rounded-[2rem] border border-border bg-white p-8 text-center shadow-sm">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-primary">
+                <Sparkles size={24} />
+              </div>
+              <h1 className="mt-5 font-heading text-3xl font-bold">
+                Agent details are temporarily unavailable.
+              </h1>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                The advisor profile could not be loaded from the agent API.
+                Please try again in a moment or return to the agents page.
+              </p>
+              <Button className="mt-6 rounded-2xl" asChild>
+                <Link href="/agents">Back to Agents</Link>
+              </Button>
+            </div>
+          </div>
+        </Container>
+      </main>
       <Footer />
     </>
   );

@@ -6,6 +6,7 @@ import AgentsExplorer from "@/components/agent/AgentsExplorer";
 import { getAgents } from "@/services/agent.service";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function AgentsPage() {
   const agents = await getAgents();
